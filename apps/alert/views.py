@@ -7,8 +7,8 @@ from .utills import sender
 # Create your views here.
 
 # @require_POST
-def dingding(request):
-    sender.dingding(request.POST.get("tos"), request.POST.get("content"))
+def ding(request):
+    sender.ding(request.POST.get("tos"), request.POST.get("content"))
     return HttpResponse("Alert received.")
 
 

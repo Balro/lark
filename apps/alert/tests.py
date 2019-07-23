@@ -1,10 +1,7 @@
-import requests
-
-url = "http://localhost:8000/alert/ding"
-data = {'tos': '2aa713587501102395004b0f87650cc5509b0d99af25868921d6509020785483/13051419527', 'content': 'value2'}
-
-req = requests.post(url, data=data)
-
-print(req.text)
-
+from apps.alert.utills import sender
+# test
 # 2aa713587501102395004b0f87650cc5509b0d99af25868921d6509020785483
+# bigdata_important
+# 2487f9315b51ea488ee589e58f1e935a2ba584d891f9602ce4b24f431569ed8f
+
+sender.ding("2aa713587501102395004b0f87650cc5509b0d99af25868921d6509020785483/13051419527,2487f9315b51ea488ee589e58f1e935a2ba584d891f9602ce4b24f431569ed8f/13051419527", "hello")
