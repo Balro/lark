@@ -1,4 +1,0 @@
-django==2.1.8
-requests
-pymysql
-aliyun-python-sdk-core==2.13.5
