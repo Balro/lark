@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-PYTHON=python3
+BIN=`dirname $0`
+BIN=`cd -P $BIN; pwd`
+VPYTHON=$BIN/venv/bin/python3
 HOST=localhost
 PORT=20002
 HOME="$(dirname $0)/.."
