@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-BIN=`dirname $0`
-BIN=`cd -P $BIN; pwd`
+LARK_HOME=`dirname $0`
+LARK_HOME=`cd -P $LARK_HOME; pwd`
 
 PYTHON_BIN=$1
-VPYTHON=$BIN/venv
+VPYTHON=$LARK_HOME/bin/venv
 
 if [[ ! "`$PYTHON_BIN --version 2>&1`" =~ ^"Python 3.6."[0-9]+$ ]]; then
     echo "need python3.6"
@@ -12,4 +12,4 @@ fi
 
 $PYTHON_BIN -m venv $VPYTHON
 
-$VPYTHON/bin/pip install -r $BIN/../requirements.txt
+$VPYTHON/bin/pip install -r $LARK_HOME/requirements.txt

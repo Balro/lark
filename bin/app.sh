@@ -4,15 +4,15 @@ BIN=`cd -P $BIN; pwd`
 VPYTHON=$BIN/venv/bin/python3
 HOST=localhost
 PORT=20002
-HOME="$(dirname $0)/.."
+LARK_HOME="$(dirname $0)/.."
 
 start(){
     if [ `status` = "ok" ]; then
         echo "Is already running!"
         exit 1
     fi
-    mkdir -p $HOME/logs
-    nohup $VPYTHON $HOME/manage.py runserver $HOST:$PORT >> $HOME/logs/start.out 2>&1 &
+    mkdir -p $LARK_HOME/logs
+    nohup $VPYTHON $LARK_HOME/manage.py runserver $HOST:$PORT >> $LARK_HOME/logs/start.out 2>&1 &
     try=0
     while [ `status` != "ok" ]; do
         if [ $try -gt 5 ]; then

@@ -4,10 +4,11 @@ import requests
 import re
 import logging
 import configparser
+import os
 
 logger = logging.getLogger('django')
 conf = configparser.ConfigParser()
-conf.read('conf/lark.config')
+conf.read(os.environ.get("LARK_HOME") + '/conf/lark.config')
 
 
 def ding(tos, content):
