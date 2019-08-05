@@ -51,7 +51,13 @@ def phone(tos, content):
     ali_number = conf['phone']['ali.number']
     voice_template = conf['phone']['ali.voice.template']
 
-    def call(name, message):
+    m = re.search(r'OK|PROBLEM', content)
+    if m:
+        message = m.group()
+    else:
+        message = ''
+
+    def call(name):
         request = CommonRequest()
         request.set_accept_format('json')
         request.set_domain('dyvmsapi.aliyuncs.com')
@@ -67,11 +73,11 @@ def phone(tos, content):
         request.add_query_param('TtsParam', {'name': '', 'message': message})
 
         response = client.do_action(request)
-        logger.info("Call {!s}, msg={!s}, return={!s}".format(name, message, response))
+        logger.info("Call {!s}, msg={!s}, return={!s}".format(name, content, response))
 
     tos = tos.split(',')
     for number in tos:
-        call(number, content)
+        call(number)
 
 
 # TODO
