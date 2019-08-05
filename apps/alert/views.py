@@ -3,10 +3,12 @@ from django.http import HttpResponse
 
 from .utills import sender
 
+import logging
 
-# Create your views here.
+logger = logging.getLogger("django")
 
-# @require_POST
+
+@require_POST
 def ding(request):
     sender.ding(request.POST.get("tos"), request.POST.get("content"))
     return HttpResponse("Alert received.")
@@ -14,8 +16,8 @@ def ding(request):
 
 @require_POST
 def phone(request):
-    # TODO
-    return HttpResponse("Not supported yet.")
+    sender.phone(request.POST.get("tos"), request.POST.get("content"))
+    return HttpResponse("Alert received.")
 
 
 @require_POST

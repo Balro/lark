@@ -12,7 +12,7 @@ start(){
         exit 1
     fi
     mkdir -p $HOME/logs
-    nohup $PYTHON $HOME/manage.py runserver $HOST:$PORT >> $HOME/logs/start.out 2>&1 &
+    nohup $VPYTHON $HOME/manage.py runserver $HOST:$PORT >> $HOME/logs/start.out 2>&1 &
     try=0
     while [ `status` != "ok" ]; do
         if [ $try -gt 5 ]; then

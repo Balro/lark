@@ -1,8 +1,13 @@
+from aliyunsdkcore.client import AcsClient
+from aliyunsdkcore.request import CommonRequest
 import requests
 import re
 import logging
+import configparser
 
 logger = logging.getLogger('django')
+conf = configparser.ConfigParser()
+conf.read('conf/lark.config')
 
 
 def ding(tos, content):
@@ -41,9 +46,32 @@ def ding(tos, content):
         logger.info("Send to ding: data={!s}, return={!s}".format(data, req.text))
 
 
-# TODO
-def phone(args):
-    pass
+def phone(tos, content):
+    client = AcsClient(conf['phone']['ali.key'], conf['phone']['ali.secret'], 'default')
+    ali_number = conf['phone']['ali.number']
+    voice_template = conf['phone']['ali.voice.template']
+
+    def call(name, message):
+        request = CommonRequest()
+        request.set_accept_format('json')
+        request.set_domain('dyvmsapi.aliyuncs.com')
+        request.set_method('POST')
+        request.set_protocol_type('https')
+        request.set_version('2017-05-25')
+        request.set_action_name('SingleCallByTts')
+
+        request.add_query_param('RegionId', "default")
+        request.add_query_param('CalledShowNumber', ali_number)
+        request.add_query_param('CalledNumber', name)
+        request.add_query_param('TtsCode', voice_template)
+        request.add_query_param('TtsParam', {'name': '', 'message': message})
+
+        response = client.do_action(request)
+        logger.info("Call {!s}, msg={!s}, return={!s}".format(name, message, response))
+
+    tos = tos.split(',')
+    for number in tos:
+        call(number, content)
 
 
 # TODO
