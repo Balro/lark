@@ -8,7 +8,7 @@ import os
 
 logger = logging.getLogger('django')
 conf = configparser.ConfigParser()
-conf.read(os.environ.get("LARK_HOME") + '/conf/lark.config')
+conf.read(os.environ.get("LARK_HOME").strip() + '/conf/lark.config')
 
 
 def ding(tos, content):
@@ -73,7 +73,7 @@ def phone(tos, content):
         request.add_query_param('TtsCode', voice_template)
         request.add_query_param('TtsParam', {'name': '', 'message': message})
 
-        response = client.do_action(request)
+        response = client.do_action_with_exception(request)
         logger.info("Call {!s}, msg={!s}, return={!s}".format(name, content, response))
 
     tos = tos.split(',')
